@@ -4,12 +4,12 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query';
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getUniversities } from '../../services/getUniversities';
 import { Response, University } from '../../types';
-import { Container } from '@chakra-ui/react';
+import { Container, SimpleGrid } from '@chakra-ui/react';
 import Header from '../../components/Header';
+import UniversityCard from '../../components/UniversityCard';
 
 const UniversitiesList: NextPage = (props) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -31,8 +31,9 @@ const UniversitiesList: NextPage = (props) => {
   return (
     <>
       <Header></Header>
-      <Container>
-        <h1>Universities List</h1>
+      <Container maxW="container.lg">
+        <h1>Universidades.</h1>
+        <h2>¿En qué universidad estudias?</h2>
         <InfiniteScroll
           dataLength={universities?.length!}
           hasMore={hasNextPage as boolean}
@@ -40,15 +41,14 @@ const UniversitiesList: NextPage = (props) => {
           loader={<h4>Loading...</h4>}
           endMessage={<h4>Yay! You have seen it all</h4>}
         >
-          <ul>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
             {universities?.map((university: University) => (
-              <li key={university.id}>
-                <Link href={`/universities/${university.id}`}>
-                  <a>{university.name}</a>
-                </Link>
-              </li>
+              <UniversityCard
+                key={university.id}
+                {...university}
+              ></UniversityCard>
             ))}
-          </ul>
+          </SimpleGrid>
         </InfiniteScroll>
       </Container>
     </>
