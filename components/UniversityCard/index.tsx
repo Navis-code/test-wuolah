@@ -2,7 +2,7 @@ import { Avatar, Box, Center, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { University } from '../../types';
 
-const UniversityCard = ({ id, logoUrl, name, slug, shortName }: University) => (
+const UniversityCard = ({ logoUrl, name, slug, shortName }: University) => (
   <Center py={6}>
     <Box
       maxW={'320px'}
@@ -40,7 +40,7 @@ const UniversityCard = ({ id, logoUrl, name, slug, shortName }: University) => (
         {name}
       </Text>
       <Stack mt={8} direction={'row'} spacing={4}>
-        <Link href={`/universities/${id}`}>
+        <Link href={`/universities/${slug}`}>
           <a className="link-btn">Ver</a>
         </Link>
       </Stack>

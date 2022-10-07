@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }: any) => {
   const res = await fetch(
-    `https://api.wuolah.com/v2/universities/${params.id}`
+    `https://api.wuolah.com/v2/universities/${params.slug}`
   );
   const university: University = await res.json();
   return {
