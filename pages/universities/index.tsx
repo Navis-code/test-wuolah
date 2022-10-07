@@ -7,7 +7,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getUniversities } from '../../services/getUniversities';
 import { Response, University } from '../../types';
-import { Container, SimpleGrid } from '@chakra-ui/react';
+import { Container, Heading, SimpleGrid } from '@chakra-ui/react';
 import Header from '../../components/Header';
 import UniversityCard from '../../components/UniversityCard';
 
@@ -31,9 +31,18 @@ const UniversitiesList: NextPage = (props) => {
   return (
     <>
       <Header></Header>
-      <Container maxW="container.lg">
-        <h1>Universidades.</h1>
-        <h2>¿En qué universidad estudias?</h2>
+      <Container maxW="container.lg" marginTop="4rem">
+        <Heading as="h1" size={{ base: '2xl', md: '3xl' }} textAlign="center">
+          Universidades.
+        </Heading>
+        <Heading
+          as="h2"
+          size={{ base: 'md', md: 'xl' }}
+          textAlign="center"
+          marginBottom="2rem"
+        >
+          ¿En qué universidad estudias?
+        </Heading>
         <InfiniteScroll
           dataLength={universities?.length!}
           hasMore={hasNextPage as boolean}
