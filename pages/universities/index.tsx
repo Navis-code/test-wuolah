@@ -8,6 +8,8 @@ import Link from 'next/link';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getUniversities } from '../../services/getUniversities';
 import { Response, University } from '../../types';
+import { Container } from '@chakra-ui/react';
+import Header from '../../components/Header';
 
 const UniversitiesList: NextPage = (props) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -28,24 +30,27 @@ const UniversitiesList: NextPage = (props) => {
 
   return (
     <>
-      <h1>Universities List</h1>
-      <InfiniteScroll
-        dataLength={universities?.length!}
-        hasMore={hasNextPage as boolean}
-        next={() => fetchNextPage()}
-        loader={<h4>Loading...</h4>}
-        endMessage={<h4>Yay! You have seen it all</h4>}
-      >
-        <ul>
-          {universities?.map((university: University) => (
-            <li key={university.id}>
-              <Link href={`/universities/${university.id}`}>
-                <a>{university.name}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </InfiniteScroll>
+      <Header></Header>
+      <Container>
+        <h1>Universities List</h1>
+        <InfiniteScroll
+          dataLength={universities?.length!}
+          hasMore={hasNextPage as boolean}
+          next={() => fetchNextPage()}
+          loader={<h4>Loading...</h4>}
+          endMessage={<h4>Yay! You have seen it all</h4>}
+        >
+          <ul>
+            {universities?.map((university: University) => (
+              <li key={university.id}>
+                <Link href={`/universities/${university.id}`}>
+                  <a>{university.name}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </InfiniteScroll>
+      </Container>
     </>
   );
 };
