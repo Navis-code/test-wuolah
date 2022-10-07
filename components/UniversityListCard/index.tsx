@@ -2,7 +2,7 @@ import { Avatar, Box, Center, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { University } from '../../types';
 
-const UniversityCard = ({ logoUrl, name, slug, shortName }: University) => (
+const UniversityListCard = ({ logoUrl, name, slug, shortName }: University) => (
   <Center py={6}>
     <Box
       maxW={'320px'}
@@ -48,4 +48,4 @@ const UniversityCard = ({ logoUrl, name, slug, shortName }: University) => (
   </Center>
 );
 
-export default UniversityCard;
+export default UniversityListCard;

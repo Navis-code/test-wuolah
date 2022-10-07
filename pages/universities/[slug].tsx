@@ -1,11 +1,33 @@
+import {
+  Avatar,
+  Badge,
+  Box,
+  Container,
+  Heading,
+  Image,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import Header from '../../components/Header';
+import UniversityDetailCard from '../../components/UniversityDetailCard';
 import { University } from '../../types';
 
-function UniversityDetails({ id, name, slug, shortName, logoUrl }: University) {
+function UniversityDetails(university: University) {
+  const { id, name, shortName, slug, logoUrl } = university;
   return (
-    <h1>
-      Universidad {id}, {name}, {slug}, {shortName}, {logoUrl}
-    </h1>
+    <>
+      <Header />
+      <Container maxW="container.lg" marginTop="4rem">
+        <Heading as="h1" size={{ base: '2xl', md: '3xl' }}>
+          {name}
+        </Heading>
+        <Heading as="h2" size={{ base: 'md', md: 'xl' }} mb="2rem">
+          Facultad o escuelas
+        </Heading>
+        <UniversityDetailCard key={id} {...university}></UniversityDetailCard>
+      </Container>
+    </>
   );
 }
 

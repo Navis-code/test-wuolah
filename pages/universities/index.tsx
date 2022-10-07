@@ -9,7 +9,7 @@ import { getUniversities } from '../../services/getUniversities';
 import { Response, University } from '../../types';
 import { Container, Heading, SimpleGrid } from '@chakra-ui/react';
 import Header from '../../components/Header';
-import UniversityCard from '../../components/UniversityCard';
+import UniversityListCard from '../../components/UniversityListCard';
 
 const UniversitiesList: NextPage = (props) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -30,7 +30,7 @@ const UniversitiesList: NextPage = (props) => {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <Container maxW="container.lg" marginTop="4rem">
         <Heading as="h1" size={{ base: '2xl', md: '3xl' }} textAlign="center">
           Universidades.
@@ -52,10 +52,10 @@ const UniversitiesList: NextPage = (props) => {
         >
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
             {universities?.map((university: University) => (
-              <UniversityCard
+              <UniversityListCard
                 key={university.id}
                 {...university}
-              ></UniversityCard>
+              ></UniversityListCard>
             ))}
           </SimpleGrid>
         </InfiniteScroll>
