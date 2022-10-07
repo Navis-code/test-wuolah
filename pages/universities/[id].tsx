@@ -1,13 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { University } from '../../types';
 
-export default function UniversityDetails({
-  id,
-  name,
-  slug,
-  shortName,
-  logoUrl,
-}: University) {
+function UniversityDetails({ id, name, slug, shortName, logoUrl }: University) {
   return (
     <h1>
       Universidad {id}, {name}, {slug}, {shortName}, {logoUrl}
@@ -26,3 +20,5 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: university,
   };
 };
+
+export default UniversityDetails;
