@@ -1,20 +1,31 @@
-import {
-  Avatar,
-  Badge,
-  Box,
-  Container,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Container, Heading } from '@chakra-ui/react';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import Header from '../../components/Header';
 import UniversityDetailCard from '../../components/UniversityDetailCard';
-import { University } from '../../types';
+import { getUniversityBySlug } from '../../services/getUniversityBySlug';
 
-function UniversityDetails(university: University) {
-  const { id, name, shortName, slug, logoUrl } = university;
+function UniversityDetails(props: any) {
+  const router = useRouter();
+  const slug = typeof router.query?.slug === 'string' ? router.query.slug : '';
+
+  const {
+    data: university,
+    isLoading,
+    isError,
+  } = useQuery(['university', slug], () => getUniversityBySlug(slug));
+
+  if (isLoading) {
+    return <div>Loading...⌛</div>;
+  }
+
+  if (isError) {
+    return <div>Ups... something went wrong 🙃</div>;
+  }
+
+  const { id, name } = university;
+
   return (
     <>
       <Header />
@@ -33,11 +44,17 @@ function UniversityDetails(university: University) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.params) {
+    const queryClient = new QueryClient();
     const { slug } = context.params;
-    const res = await fetch(`https://api.wuolah.com/v2/universities/${slug}`);
-    const university: University = await res.json();
+
+    await queryClient.prefetchQuery(['university', slug], () =>
+      getUniversityBySlug(slug as string)
+    );
+
     return {
-      props: university,
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
     };
   }
   return {
