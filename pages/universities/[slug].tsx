@@ -31,15 +31,17 @@ function UniversityDetails(university: University) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-}: any) => {
-  const res = await fetch(
-    `https://api.wuolah.com/v2/universities/${params.slug}`
-  );
-  const university: University = await res.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (context.params) {
+    const { slug } = context.params;
+    const res = await fetch(`https://api.wuolah.com/v2/universities/${slug}`);
+    const university: University = await res.json();
+    return {
+      props: university,
+    };
+  }
   return {
-    props: university,
+    notFound: true,
   };
 };
 
