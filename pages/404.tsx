@@ -8,7 +8,7 @@ const Custom404Page: NextPage = (props) => {
   return (
     <>
       <Head>
-        <title>The page you were looking for doesn't exist | 404</title>
+        <title>The page you were looking for not exist | 404</title>
       </Head>
       <Header />
       <Container maxW="container.lg" marginTop="4rem">
