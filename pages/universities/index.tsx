@@ -25,16 +25,17 @@ const UniversitiesList: NextPage = (props) => {
       getNextPageParam: (page: Response) =>
         page.meta.pagination.page === 50 ? null : page.meta.pagination.page + 1,
     });
-
   const universities = data?.pages?.map((page) => page.data).flat() || [];
+
+  const loaginSkeleton = (
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+      <SkeletonListCard qty={[0, 1, 2, 3]} />
+    </SimpleGrid>
+  );
 
   const renderUniversities = () => {
     if (isLoading) {
-      return (
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-          <SkeletonListCard qty={[0, 1, 2, 3]} />
-        </SimpleGrid>
-      );
+      return loaginSkeleton;
     }
 
     if (isError) {
@@ -51,8 +52,8 @@ const UniversitiesList: NextPage = (props) => {
         dataLength={universities?.length!}
         hasMore={hasNextPage as boolean}
         next={() => fetchNextPage()}
-        loader={<h4>Loading...</h4>}
-        endMessage={<h4>Yay! You have seen it all</h4>}
+        loader={loaginSkeleton}
+        endMessage={loaginSkeleton}
       >
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
           {universities?.map((university: University) => (
