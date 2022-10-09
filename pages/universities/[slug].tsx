@@ -1,4 +1,4 @@
-import { Container, Heading } from '@chakra-ui/react';
+import { Alert, AlertIcon, Container, Heading } from '@chakra-ui/react';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -23,7 +23,12 @@ function UniversityDetails() {
     }
 
     if (isError) {
-      return <div>Ups... something went wrong 🙃</div>;
+      return (
+        <Alert status="warning">
+          <AlertIcon />
+          Ups... something went wrong 🙃
+        </Alert>
+      );
     }
 
     const { id } = university;

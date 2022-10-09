@@ -7,7 +7,13 @@ import { GetServerSideProps, NextPage } from 'next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getUniversities } from '../../services/getUniversities';
 import { Response, University } from '../../types';
-import { Container, Heading, SimpleGrid } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertIcon,
+  Container,
+  Heading,
+  SimpleGrid,
+} from '@chakra-ui/react';
 import Header from '../../components/Header';
 import UniversityListCard from '../../components/UniversityListCard';
 import SkeletonListCard from '../../components/SkeletonListCard';
@@ -31,7 +37,12 @@ const UniversitiesList: NextPage = (props) => {
     }
 
     if (isError) {
-      return <div>Ups... something went wrong 🙃</div>;
+      return (
+        <Alert status="warning">
+          <AlertIcon />
+          Ups... something went wrong 🙃
+        </Alert>
+      );
     }
 
     return (
