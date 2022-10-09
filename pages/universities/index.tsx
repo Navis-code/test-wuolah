@@ -17,6 +17,7 @@ import {
 import Header from '../../components/Header';
 import UniversityListCard from '../../components/UniversityListCard';
 import SkeletonListCard from '../../components/SkeletonListCard';
+import Head from 'next/head';
 
 const UniversitiesList: NextPage = (props) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -67,6 +68,27 @@ const UniversitiesList: NextPage = (props) => {
 
   return (
     <>
+      <Head>
+        <title>Wuolah | Universities</title>
+        <meta
+          name="description"
+          content="Gana dinero compartiendo tus apuntes, y descarga los de tu clase de forma rápida y sencilla."
+        />
+        <meta name="keyword" content="Apuntes" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://test-wuolah.netlify.app" />
+        <meta property="og:title" content="Wuolah | Universities" />
+        <meta
+          property="og:description"
+          content="Gana dinero compartiendo tus apuntes, y descarga los de tu clase de forma rápida y sencilla."
+        />
+        <meta
+          property="og:image"
+          content="https://test-wuolah.netlify.app/wuolahLogo.png"
+        ></meta>
+      </Head>
       <Header />
       <Container maxW="container.lg" marginTop="4rem">
         <Heading as="h1" size={{ base: '2xl', md: '3xl' }} textAlign="center">
