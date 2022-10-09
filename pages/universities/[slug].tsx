@@ -1,6 +1,7 @@
 import { Alert, AlertIcon, Container, Heading } from '@chakra-ui/react';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Header from '../../components/Header';
 import SkeletonListCard from '../../components/SkeletonListCard';
@@ -39,6 +40,29 @@ function UniversityDetails() {
 
   return (
     <>
+      <Head>
+        <title>Wuolah | University</title>
+
+        <meta
+          name="description"
+          content="Los apuntes de la universidad de tu ciudad"
+        />
+        <meta name="keyword" content="Apuntes" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://test-wuolah.netlify.app" />
+        <meta property="og:title" content="Wuolah" />
+        <meta
+          property="og:description"
+          content="Los apuntes de la universidad de tu ciudad"
+        />
+        <meta
+          property="og:image"
+          content="https://test-wuolah.netlify.app/wuolahLogo.png"
+        ></meta>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header />
       <Container maxW="container.lg" marginTop="4rem">
         <Heading as="h1" size={{ base: '2xl', md: '3xl' }}>

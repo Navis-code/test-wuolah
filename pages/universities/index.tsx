@@ -72,17 +72,20 @@ const UniversitiesList: NextPage = (props) => {
         <title>Wuolah | Universities</title>
         <meta
           name="description"
-          content="Gana dinero compartiendo tus apuntes, y descarga los de tu clase de forma rápida y sencilla."
+          content="Encuentra la universidad que buscas, y descubre los apuntes que otros estudiantes han compartido."
         />
         <meta name="keyword" content="Apuntes" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://test-wuolah.netlify.app" />
+        <meta
+          property="og:url"
+          content="https://test-wuolah.netlify.app/universities"
+        />
         <meta property="og:title" content="Wuolah | Universities" />
         <meta
           property="og:description"
-          content="Gana dinero compartiendo tus apuntes, y descarga los de tu clase de forma rápida y sencilla."
+          content="Encuentra la universidad que buscas y descubre los apuntes que otros estudiantes han compartido."
         />
         <meta
           property="og:image"
