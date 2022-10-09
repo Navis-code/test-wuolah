@@ -10,6 +10,7 @@ import { Response, University } from '../../types';
 import { Container, Heading, SimpleGrid } from '@chakra-ui/react';
 import Header from '../../components/Header';
 import UniversityListCard from '../../components/UniversityListCard';
+import SkeletonListCard from '../../components/SkeletonListCard';
 
 const UniversitiesList: NextPage = (props) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -21,7 +22,11 @@ const UniversitiesList: NextPage = (props) => {
   const universities = data?.pages?.map((page) => page.data).flat() || [];
 
   if (isLoading) {
-    return <div>Loading...⌛</div>;
+    return (
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+        <SkeletonListCard qty={[0, 1, 2, 3]} />
+      </SimpleGrid>
+    );
   }
 
   if (isError) {

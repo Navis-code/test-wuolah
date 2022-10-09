@@ -3,10 +3,11 @@ import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Header from '../../components/Header';
+import SkeletonListCard from '../../components/SkeletonListCard';
 import UniversityDetailCard from '../../components/UniversityDetailCard';
 import { getUniversityBySlug } from '../../services/getUniversityBySlug';
 
-function UniversityDetails(props: any) {
+function UniversityDetails() {
   const router = useRouter();
   const slug = typeof router.query?.slug === 'string' ? router.query.slug : '';
 
@@ -17,7 +18,7 @@ function UniversityDetails(props: any) {
   } = useQuery(['university', slug], () => getUniversityBySlug(slug));
 
   if (isLoading) {
-    return <div>Loading...⌛</div>;
+    return <SkeletonListCard qty={[0]} />;
   }
 
   if (isError) {
