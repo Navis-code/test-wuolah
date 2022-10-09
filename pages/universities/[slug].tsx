@@ -17,27 +17,32 @@ function UniversityDetails() {
     isError,
   } = useQuery(['university', slug], () => getUniversityBySlug(slug));
 
-  if (isLoading) {
-    return <SkeletonListCard qty={[0]} />;
-  }
+  const renderUniversity = () => {
+    if (isLoading) {
+      return <SkeletonListCard qty={[0]} />;
+    }
 
-  if (isError) {
-    return <div>Ups... something went wrong 🙃</div>;
-  }
+    if (isError) {
+      return <div>Ups... something went wrong 🙃</div>;
+    }
 
-  const { id, name } = university;
+    const { id } = university;
+    return (
+      <UniversityDetailCard key={id} {...university}></UniversityDetailCard>
+    );
+  };
 
   return (
     <>
       <Header />
       <Container maxW="container.lg" marginTop="4rem">
         <Heading as="h1" size={{ base: '2xl', md: '3xl' }}>
-          {name}
+          {university?.name || 'University Details'}
         </Heading>
         <Heading as="h2" size={{ base: 'md', md: 'xl' }} mb="2rem">
           Facultad o escuelas
         </Heading>
-        <UniversityDetailCard key={id} {...university}></UniversityDetailCard>
+        {renderUniversity()}
       </Container>
     </>
   );

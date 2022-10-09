@@ -21,17 +21,38 @@ const UniversitiesList: NextPage = (props) => {
 
   const universities = data?.pages?.map((page) => page.data).flat() || [];
 
-  if (isLoading) {
-    return (
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-        <SkeletonListCard qty={[0, 1, 2, 3]} />
-      </SimpleGrid>
-    );
-  }
+  const renderUniversities = () => {
+    if (isLoading) {
+      return (
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+          <SkeletonListCard qty={[0, 1, 2, 3]} />
+        </SimpleGrid>
+      );
+    }
 
-  if (isError) {
-    return <div>Ups... something went wrong 🙃</div>;
-  }
+    if (isError) {
+      return <div>Ups... something went wrong 🙃</div>;
+    }
+
+    return (
+      <InfiniteScroll
+        dataLength={universities?.length!}
+        hasMore={hasNextPage as boolean}
+        next={() => fetchNextPage()}
+        loader={<h4>Loading...</h4>}
+        endMessage={<h4>Yay! You have seen it all</h4>}
+      >
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+          {universities?.map((university: University) => (
+            <UniversityListCard
+              key={university.id}
+              {...university}
+            ></UniversityListCard>
+          ))}
+        </SimpleGrid>
+      </InfiniteScroll>
+    );
+  };
 
   return (
     <>
@@ -48,22 +69,7 @@ const UniversitiesList: NextPage = (props) => {
         >
           ¿En qué universidad estudias?
         </Heading>
-        <InfiniteScroll
-          dataLength={universities?.length!}
-          hasMore={hasNextPage as boolean}
-          next={() => fetchNextPage()}
-          loader={<h4>Loading...</h4>}
-          endMessage={<h4>Yay! You have seen it all</h4>}
-        >
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-            {universities?.map((university: University) => (
-              <UniversityListCard
-                key={university.id}
-                {...university}
-              ></UniversityListCard>
-            ))}
-          </SimpleGrid>
-        </InfiniteScroll>
+        {renderUniversities()}
       </Container>
     </>
   );
